@@ -19,7 +19,7 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("right", "left", "backward", "forward")
+	var input_dir = Input.get_vector("left", "right", "backward", "forward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -29,5 +29,5 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	current_speed = velocity.length()
-
+	$AnimationTree.set("parameters/Idle_Walk/blend_amount", current_speed/SPEED) 
 	move_and_slide()
